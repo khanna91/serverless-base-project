@@ -1,5 +1,5 @@
-const { OK } = require('@utils/helper');
-const { logger } = require('@utils/logger');
+const { OK } = require('../../../utils/helper');
+const { logger } = require('../../../utils/logger');
 
 exports.trace = async (event) => {
   logger.info('im inside trace controller');

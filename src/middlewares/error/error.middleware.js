@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const _ = require('lodash');
-const { APIError, generateError } = require('@utils/APIError');
+const { APIError, generateError } = require('../../utils/APIError');
 
 /**
  * Error handler. Send stacktrace only during development

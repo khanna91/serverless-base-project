@@ -1,5 +1,5 @@
 const middy = require('middy');
-const { routeValidator } = require('@middlewares/route-validator');
+const { routeValidator } = require('../../../middlewares/route-validator');
 const controller = require('./trace.controller');
 const validator = require('./trace.validator');
 
