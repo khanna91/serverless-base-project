@@ -1,0 +1,38 @@
+service: astro-serverless-base # NOTE: update this with your service name
+
+custom:
+  settings:
+    ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
+    DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
+
+
+plugins:
+  - serverless-plugin-tracing
+
+provider:
+  name: aws
+  region: ap-southeast-1
+  runtime: nodejs10.x
+  profile: psycho-serverless
+  environment: ${self:custom.settings}
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "xray:PutTraceSegments"
+        - "xray:PutTelemetryRecords"
+      Resource:
+        - "*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+functions:
+  hello:
+    handler: handler.hello
+    tracing: true
+    events:
+      - http:
+          method: get
+          path: v1/hello

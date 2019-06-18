@@ -1,0 +1,12 @@
+{
+  "name": "serverless-base-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Rahul Khanna",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.477.0",
+    "aws-xray-sdk": "^2.3.3",
+    "serverless-plugin-tracing": "^2.0.0"
+  }
+}
