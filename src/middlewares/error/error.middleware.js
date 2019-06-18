@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const _ = require('lodash');
-const { APIError, generateError } = require('../../utils/APIError');
+const { APIError, generateError } = require('@utils/APIError');
 
 /**
  * Error handler. Send stacktrace only during development
@@ -22,12 +22,12 @@ const errorHandler = (err) => { // eslint-disable-line
   let statusCode = 500;
   if (err.status >= 100 && err.status < 600) {
     statusCode = err.status;
-  } 
+  }
 
   return {
     statusCode,
-    body: JSON.stringify(response, null, 2),
-  }
+    body: JSON.stringify(response, null, 2)
+  };
 };
 exports.errorHandler = errorHandler;
 
@@ -91,15 +91,15 @@ exports.convertGenericError = convertGenericError;
 exports.converter = () => {  // eslint-disable-line
   return ({
     onError: (handler, next) => {
-      let err = handler.error;
+      const err = handler.error;
       let convertedError = err;
       if (err.isJoi && Array.isArray(err.details) && err.details.length > 0) {
         convertedError = convertValidationError(err);
       } else if (!(err instanceof APIError)) {
         convertedError = convertGenericError(err);
       }
-      handler.response = errorHandler(convertedError);
+      handler.response = errorHandler(convertedError); // eslint-disable-line
       return next();
     }
-  })
+  });
 };

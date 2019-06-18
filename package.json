@@ -15,5 +15,21 @@
     "node-sanitizer": "^1.0.5",
     "serverless-plugin-tracing": "^2.0.0",
     "winston": "^3.2.1"
+  },
+  "_moduleAliases": {
+    "@app": "src",
+    "@config": "src/config",
+    "@api": "src/api",
+    "@middlewares": "src/middlewares",
+    "@models": "src/models",
+    "@services": "src/services",
+    "@utils": "src/utils"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-astro": "^1.0.8",
+    "eslint-import-resolver-module-alias": "^0.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "prettier-eslint": "^9.0.0"
   }
 }
