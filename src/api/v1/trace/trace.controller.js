@@ -1,11 +1,4 @@
-'use strict';
-
-const awsXRay = require('aws-xray-sdk');
-const awsSdk = awsXRay.captureAWS(require('aws-sdk'));
-
-const traceRoute = require('./src/api/v1/trace');
-
-module.exports.hello = async (event) => {
+exports.trace = async = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -15,6 +8,4 @@ module.exports.hello = async (event) => {
       input: event,
     }, null, 2),
   };
-};
-
-module.exports.trace = traceRoute;
+}
