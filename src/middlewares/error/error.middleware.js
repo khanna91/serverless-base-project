@@ -18,6 +18,7 @@ const errorHandler = (err) => { // eslint-disable-line
 
   if (process.env.NODE_ENV !== 'development') {
     delete response.response.stack;
+    delete response.input;
   }
   let statusCode = 500;
   if (err.status >= 100 && err.status < 600) {

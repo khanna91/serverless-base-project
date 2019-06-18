@@ -4,6 +4,7 @@ custom:
   settings:
     ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
     DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
+    NODE_ENV: 'development'
 
 
 plugins:
@@ -30,7 +31,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src.hello
     tracing: true
     events:
       - http:
@@ -38,7 +39,7 @@ functions:
           path: v1/hello
   
   trace:
-    handler: handler.trace
+    handler: src.trace
     tracing: true
     events:
       - http:

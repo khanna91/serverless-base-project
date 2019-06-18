@@ -11,11 +11,11 @@ const routeValidator = ({ schema }) => ({
       throw validateHeaders.error;
     }
     // validate body
-    const validateBody = Joi.validate(body, schema.body || {});
+    const validateBody = Joi.validate(body || {}, schema.body || {});
     if (validateBody.error) {
       throw validateBody.error;
     }
-
+    console.log('custom validation pass');
     return next();
   },
   after: (handler, next) => next()
