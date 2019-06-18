@@ -1,7 +1,6 @@
 const Joi = require('@hapi/joi');
 
 const routeValidator = ({schema}) => {
-  // might set default options in config
   return ({
     before: (handler, next) => {
       const request = handler.event;

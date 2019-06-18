@@ -2,8 +2,26 @@
 
 const awsXRay = require('aws-xray-sdk');
 const awsSdk = awsXRay.captureAWS(require('aws-sdk'));
-
+const { 
+  httpEventNormalizer, 
+  httpHeaderNormalizer, 
+  jsonBodyParser, 
+  urlEncodeBodyParser, 
+  cors,
+  httpSecurityHeaders
+} = require('middy/middlewares');
+const { errorMiddleware } = require('./src/middlewares/error');
 const traceRoute = require('./src/api/v1/trace');
+
+const attachCommonMiddlewares = (handler) => {
+  return handler.use(cors())
+    .use(httpEventNormalizer())
+    .use(httpHeaderNormalizer())
+    .use(jsonBodyParser())
+    .use(urlEncodeBodyParser())
+    .use(httpSecurityHeaders())
+    .use(errorMiddleware.converter())
+}
 
 module.exports.hello = async (event) => {
   return {
@@ -17,4 +35,4 @@ module.exports.hello = async (event) => {
   };
 };
 
-module.exports.trace = traceRoute;
+module.exports.trace = attachCommonMiddlewares(traceRoute);
