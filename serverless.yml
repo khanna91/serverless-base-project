@@ -1,11 +1,23 @@
 service: astro-serverless-base # NOTE: update this with your service name
 
 custom:
+  stage: ${opt:stage, self:provider.stage}
   settings:
-    ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
-    DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
-    NODE_ENV: 'development'
-
+    dev:
+      STAGE: ${self:custom.stage}
+      NODE_ENV: 'development'
+      ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
+      DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
+    stg:
+      STAGE: ${self:custom.stage}
+      NODE_ENV: 'staging'
+      ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
+      DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
+    prod:
+      STAGE: ${self:custom.stage}
+      NODE_ENV: 'production'
+      ENCRYPTED_VALUE: ${ssm:/kms-test/value1}
+      DECRYPTED_VALUE: ${ssm:/kms-test/value1~true}
 
 plugins:
   - serverless-plugin-tracing
@@ -15,7 +27,7 @@ provider:
   region: ap-southeast-1
   runtime: nodejs10.x
   profile: psycho-serverless
-  environment: ${self:custom.settings}
+  environment: ${self:custom.settings.${self:custom.stage}}
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -24,10 +36,6 @@ provider:
         - "xray:PutTelemetryRecords"
       Resource:
         - "*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
 functions:
   hello:
